@@ -14,7 +14,8 @@ public class Node {
 	public Node(int key, String value) {
 		this.key = key;
 		this.value = value;
-		left = right = null;
+		left = null;
+		right = null;
 	}
 
 	public int getKey() {
@@ -48,52 +49,22 @@ public class Node {
 	public void addChild(Node node) {
 		if (this.key == node.key) {
 			this.value = node.value;
-		}
-		else if (this.key > node.key) {
-			if (this.left == null) {
-				this.left = node;
-			}
-			else {
+		} else if (this.key > node.key) {
+			if (this.left == null)
+				left = node;
+			else
 				left.addChild(node);
-			}
-		}
-		else {
-			if (this.right == null) {
-				this.right = node;
-			}
-			else {
+		} else if (this.key < node.key) {
+			if (this.right == null)
+				right = node;
+			else
 				this.right.addChild(node);
-			}
 		}
 	}
 
-	public void inOrder() {
-		if (this.left != null) {
-			this.left.inOrder();
-		}
-		System.out.println("(" + this.key + "): " + this.value + " ");
-		if (this.right != null) {
-			this.right.inOrder();
-		}
+	public boolean isLeaf() {
+		return (left == null) && (right == null);
 	}
 
-	public void preOrder() {
-		System.out.println("(" + this.key + "): " + this.value + " ");
-		if (this.left != null) {
-			this.left.preOrder();
-		}
-		if (this.right != null) {
-			this.right.preOrder();
-		}
-	}
 
-	public void postOrder() {
-		if (this.left != null) {
-			this.left.postOrder();
-		}
-		if (this.right != null) {
-			this.right.postOrder();
-		}
-		System.out.println("(" + this.key + "): " + this.value + " ");
-	}
 }
